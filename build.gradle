@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.0"
+}
+
+repositories {
+    mavenCentral()
+    maven { url("https://repo.lucko.me/") }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+    maven {
+        name = 'CodeMC'
+        url = 'https://repo.codemc.org/repository/maven-public/'
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:22.0.0'
+    compileOnly 'me.lucko:helper:5.6.8'
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT' // The Spigot API with no shadowing. Requires the OSS repo.
+    implementation group: 'de.tr7zw', name: 'item-nbt-api', version: '2.9.2'
+
+
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+}
+
+shadowJar {
+    archivesBaseName = "Backpacks"
+    archiveFileName.set("Backpacks.jar")
+
+    destinationDir = file('server/plugins/')
+    classifier = null
+    minimize()
+    dependencies {
+        manifest({
+            attributes("Main-Class": "org.pvpcore.scratchcards.ScratchcardPlugin")
+        })
+    }
+}

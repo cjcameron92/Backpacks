@@ -1,0 +1,7 @@
+# Backpack configuration file
+blacklisted-worlds:
+  - 'end_world'
+  - 'nether_world'
+blacklisted-types:
+  - 'GRASS'
+  - 'DIRT'
